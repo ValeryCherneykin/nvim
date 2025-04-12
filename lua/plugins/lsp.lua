@@ -19,6 +19,8 @@ return {
       formatters_by_ft = {
         go = { "gofmt" },
         dockerfile = { "dockerfile_formatter" },
+        html = { "prettier" },
+        css = { "prettier" },
       }
     })
 
@@ -37,6 +39,9 @@ return {
         "gopls",
         "lua_ls",
         "dockerls", -- исправлено
+        "html",
+        "cssls",
+        "intelephense",
       },
       handlers = {
         function(server_name)
@@ -68,6 +73,47 @@ return {
             capabilities = capabilities,
           })
         end,
+        ["html"] = function()
+          local lspconfig = require("lspconfig")
+          lspconfig.html.setup({
+            capabilities = capabilities,
+            settings = {
+              html = {
+                suggest = {
+                  html5 = true,
+                  css = true,
+                },
+              },
+            },
+          })
+        end,
+
+        ["cssls"] = function()
+          local lspconfig = require("lspconfig")
+          lspconfig.cssls.setup({
+            capabilities = capabilities,
+            settings = {
+              css = {
+                lint = {
+                  unknownAtRules = "ignore",
+                },
+              },
+            },
+          })
+        end,
+                ["intelephense"] = function()
+  local lspconfig = require("lspconfig")
+  lspconfig.intelephense.setup({
+    capabilities = capabilities,
+    settings = {
+      intelephense = {
+        files = {
+          maxSize = 5000000,
+        },
+      },
+    },
+  })
+end,
       }
     })
 
@@ -89,8 +135,16 @@ return {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
       }, {
-        { name = 'buffer' },
-      })
+        { name = 'buffer', keyword_length = 4 },
+      }),
+      completion = {
+        completeopt = 'menu,menuone,noinsert',
+        keyword_length = 2,
+        max_item_count = 10,
+      },
+      experimental = {
+        native_menu = false,
+      },
     })
 
     vim.diagnostic.config({

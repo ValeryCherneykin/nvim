@@ -4,7 +4,7 @@ return {
   config = function()
     require("nvim-treesitter.configs").setup({
       ensure_installed = {
-        "go", "bash", "dockerfile", "yaml", "json",
+        "go", "bash", "dockerfile", "yaml", "json", "html","css",
       },
       sync_install = false,
       auto_install = true,
