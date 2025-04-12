@@ -51,8 +51,8 @@ vim.keymap.set(
 
 -- html 
 vim.keymap.set(
-  "n", 
-  "<leader>html", 
+  "n",
+  "<leader>html",
   [[i<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,5 +72,5 @@ vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 
 
 vim.keymap.set("n", "<leader><leader>", function()
-  vim.cmd("so")
+  vim.cmd("source $MYVIMRC")
 end)
