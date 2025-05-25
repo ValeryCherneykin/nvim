@@ -25,3 +25,5 @@ plugged/
 node_modules/
 
 *.env
+
+cmp_profile.log
